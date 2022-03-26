@@ -1,4 +1,6 @@
+using System.Net;
 using System.Threading.Tasks;
+using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Xunit;
 
@@ -17,8 +19,19 @@ public class AsteradarAPITests : IClassFixture<WebApplicationFactory<Program>>
     public async Task  Test_Succes()
     {
         var client = this.fixture.CreateClient();
+        
         var response = await client.GetAsync("/asteroids?planet=earth");
 
         response.EnsureSuccessStatusCode();
+    }
+
+    [Fact]
+    public async Task Test_BadRequest()
+    {
+        var client = this.fixture.CreateClient();
+
+        var response = await client.GetAsync("/asteroids");
+
+        response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
     }
 }

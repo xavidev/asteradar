@@ -1,4 +1,7 @@
+using System.ComponentModel.DataAnnotations;
 using Asteradar.API.Client;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,7 +21,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.MapGet("/asteroids", (string planet) => $"Hello {planet}!");
+app.MapGet("/asteroids", (string planet) => Results.Ok()).ProducesValidationProblem(400);
 
 app.Run();
 
