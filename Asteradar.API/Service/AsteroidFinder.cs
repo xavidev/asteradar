@@ -14,6 +14,11 @@ public class AsteroidFinder
 
     public async Task<IReadOnlyList<AsteroidDTO>> GetHazardousAsteroids(string planet, int take = 3)
     {
+        if (string.IsNullOrWhiteSpace(planet) || string.IsNullOrEmpty(planet))
+        {
+            throw new ArgumentException();
+        }
+        
         var now = DateTime.Now;
         var result = await this.client.GetNearAsteroids(now, now.AddDays(7));
 

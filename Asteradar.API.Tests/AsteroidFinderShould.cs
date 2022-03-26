@@ -34,6 +34,17 @@ public class AsteroidFinderShould
         result[2].Name.Should().Be("Third");
     }
 
+    [Fact]
+    public async Task Throw_Error_When_Invalid_Planet()
+    {
+        var clientStub = new Mock<IAsteroidClient>();
+        var sut = new AsteroidFinder(clientStub.Object);
+
+        var act = async () => await sut.GetHazardousAsteroids(" ");
+        
+        await act.Should().ThrowExactlyAsync<ArgumentException>();
+    }
+
     private static List<Asteroid> CreateAsteroids()
     {
         var asteroids = new List<Asteroid>()
