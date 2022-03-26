@@ -7,5 +7,4 @@ public class AsteroidDTO
     public double Velocity { get; set; }
     public string Date { get; set; }
     public string Planet { get; set; }
-    public bool IsHazardous { get; set; }
 }

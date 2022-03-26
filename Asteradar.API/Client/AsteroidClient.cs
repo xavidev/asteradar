@@ -17,10 +17,8 @@ public class AsteroidClient : IAsteroidClient
 
     public async Task<List<Asteroid>> GetNearAsteroids(DateTime @from, DateTime to)
     {
-        var startDate = "2020-09-09";
-        var endDate = "2020-09-16";
-        // var startDate = DateOnly.FromDateTime(@from);
-        // var endDate = DateOnly.FromDateTime(to);
+        var startDate = DateOnly.FromDateTime(@from).ToString("yyyy-MM-dd");
+        var endDate = DateOnly.FromDateTime(to).ToString("yyyy-MM-dd");
         var uri =
             $"{this.client.BaseAddress}neo/rest/v1/feed?start_date={startDate}&end_date={endDate}&api_key={this.configuration["API:Key"]}";
 
@@ -28,6 +26,7 @@ public class AsteroidClient : IAsteroidClient
         response.EnsureSuccessStatusCode();
 
         var content = await response.Content.ReadFromJsonAsync<Response.NearAsteroidsResponse>();
+        
         return content?.NearEarthObjects.SelectMany(x => x.Value.Select(x => new Asteroid()
         {
             Date = DateOnly.Parse(x.CloseApproachData[0].CloseApproachDate),

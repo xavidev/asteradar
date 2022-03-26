@@ -29,8 +29,7 @@ public class AsteroidFinder
                 Diameter = x.Diameter,
                 Name = x.Name,
                 Planet = x.Planet,
-                Velocity = x.Velocity,
-                IsHazardous = x.IsHazardous
+                Velocity = x.Velocity
             })
             .Take(take)
             .ToList();
