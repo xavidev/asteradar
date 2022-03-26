@@ -25,7 +25,7 @@ public class AsteroidFinder
             .OrderByDescending(x => x.Diameter)
             .Select(x => new AsteroidDTO()
             {
-                Date = x.Date,
+                Date = x.Date.ToShortDateString(),
                 Diameter = x.Diameter,
                 Name = x.Name,
                 Planet = x.Planet,

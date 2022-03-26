@@ -20,11 +20,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.MapGet("/asteroids", (string planet) =>
+app.MapGet("/asteroids", async (string planet, AsteroidFinder finder) =>
 {
-    
-    return Results.Ok();
-}).ProducesValidationProblem(400);
+    var result = await finder.GetHazardousAsteroids(planet);
+    return Results.Ok(result);
+})
+    .Produces<List<AsteroidDTO>>()
+    .ProducesValidationProblem(400);
 
 app.Run();
 
