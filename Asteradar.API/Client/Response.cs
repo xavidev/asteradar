@@ -153,7 +153,6 @@ public class Response
         [JsonPropertyName("element_count")]
         public int ElementCount { get; set; }
 
-        [JsonPropertyName("near_earth_objects")]
-        public Dictionary<string,NearEarthObject> NearEarthObjects { get; set; }
+        public Dictionary<string,List<NearEarthObject>> NearEarthObjects { get; set; }
     }
 }

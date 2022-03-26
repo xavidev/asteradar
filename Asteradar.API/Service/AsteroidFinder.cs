@@ -1,14 +1,21 @@
+using Asteradar.API.Client;
+
 namespace Asteradar.API.Service;
 
 public class AsteroidFinder
 {
-    public AsteroidFinder()
+    private readonly IAsteroidClient client;
+
+    public AsteroidFinder(IAsteroidClient client)
     {
-            
+        this.client = client;
     }
 
-    public void GetNearAsteroids()
+    public async Task<IReadOnlyList<AsteroidDTO>> GetNearAsteroids(string planet)
     {
-        throw new NotImplementedException();
+        var now = DateTime.Now;
+        var result = await this.client.GetNearAsteroids(now, now.AddDays(7));
+
+        return result.Where(x => x.IsHazardous && x.Planet.Equals(planet, StringComparison.OrdinalIgnoreCase)).ToList();
     }
 }

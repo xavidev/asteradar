@@ -3,7 +3,7 @@ using Asteradar.API.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddHttpClient<AsteroidClient>(x =>
+builder.Services.AddHttpClient<IAsteroidClient, AsteroidClient>(x =>
 {
     x.BaseAddress = new Uri(builder.Configuration["API:BaseUrl"]);
 });

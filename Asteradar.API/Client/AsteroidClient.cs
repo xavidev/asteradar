@@ -1,6 +1,8 @@
+using Asteradar.API.Service;
+
 namespace Asteradar.API.Client;
 
-public class AsteroidClient
+public class AsteroidClient : IAsteroidClient
 {
     private readonly HttpClient client;
     private readonly IConfiguration configuration;
@@ -9,5 +11,10 @@ public class AsteroidClient
     {
         this.client = client;
         this.configuration = configuration;
+    }
+
+    public Task<List<AsteroidDTO>> GetNearAsteroids(DateTime @from, DateTime to)
+    {
+        throw new NotImplementedException();
     }
 }
