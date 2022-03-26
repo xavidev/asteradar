@@ -12,7 +12,7 @@ public class AsteroidFinder
         this.client = client;
     }
 
-    public async Task<IReadOnlyList<AsteroidDTO>> GetHazardousAsteroids(string planet)
+    public async Task<IReadOnlyList<AsteroidDTO>> GetHazardousAsteroids(string planet, int take = 3)
     {
         var now = DateTime.Now;
         var result = await this.client.GetNearAsteroids(now, now.AddDays(7));
@@ -32,6 +32,7 @@ public class AsteroidFinder
                 Velocity = x.Velocity,
                 IsHazardous = x.IsHazardous
             })
+            .Take(take)
             .ToList();
     }
 }

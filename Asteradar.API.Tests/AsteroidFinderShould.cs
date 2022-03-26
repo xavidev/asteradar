@@ -16,7 +16,7 @@ namespace Asteradar.API.Tests;
 public class AsteroidFinderShould
 {
     [Fact]
-    public async Task Return_Dangerous_Asteroids_Of_Given_Planet_Order_By_Size()
+    public async Task Return_Top_3_Dangerous_Asteroids_Of_Given_Planet_Order_By_Size()
     {
         var clientStub = new Mock<IAsteroidClient>();
         clientStub.Setup(x => x.GetNearAsteroids(It.IsAny<DateTime>(),
