@@ -16,6 +16,8 @@ public class AsteroidFinder
         var now = DateTime.Now;
         var result = await this.client.GetNearAsteroids(now, now.AddDays(7));
 
-        return result.Where(x => x.IsHazardous && x.Planet.Equals(planet, StringComparison.OrdinalIgnoreCase)).ToList();
+        return result.Where(x => x.IsHazardous &&
+                                 !string.IsNullOrEmpty(x.Planet) &&
+                                 x.Planet.Equals(planet, StringComparison.OrdinalIgnoreCase)).ToList();
     }
 }

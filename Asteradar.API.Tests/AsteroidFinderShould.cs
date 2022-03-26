@@ -15,7 +15,7 @@ namespace Asteradar.API.Tests;
 public class AsteroidFinderShould
 {
     [Fact]
-    public async Task Return_Asteroids()
+    public async Task Return_Asteroids_Of_Given_Planet()
     {
         var clientStub = new Mock<IAsteroidClient>();
         clientStub.Setup(x => x.GetNearAsteroids(It.IsAny<DateTime>(),
@@ -27,7 +27,8 @@ public class AsteroidFinderShould
         var result = await sut.GetNearAsteroids("earth");
 
         
-        result.Count.Should().Be(1);
+        result.Count.Should().Be(2);
+        result.First().Planet.Should().Be("earth");
     }
 
     private static List<AsteroidDTO> CreateAsteroids()
@@ -41,6 +42,24 @@ public class AsteroidFinderShould
                 IsHazardous = true,
                 Name = It.IsAny<string>(),
                 Planet = "earth",
+                Velocity = It.IsAny<double>()
+            },
+            new()
+            {
+                Date = DateOnly.FromDateTime(26.March(2022)),
+                Diameter = It.IsAny<double>(),
+                IsHazardous = true,
+                Name = It.IsAny<string>(),
+                Planet = "earth",
+                Velocity = It.IsAny<double>()
+            },
+            new()
+            {
+                Date = DateOnly.FromDateTime(26.March(2022)),
+                Diameter = It.IsAny<double>(),
+                IsHazardous = true,
+                Name = It.IsAny<string>(),
+                Planet = It.IsAny<string>(),
                 Velocity = It.IsAny<double>()
             }
         };
