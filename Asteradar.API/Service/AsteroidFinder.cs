@@ -1,4 +1,5 @@
 using Asteradar.API.Client;
+using Asteradar.API.Models;
 
 namespace Asteradar.API.Service;
 
@@ -18,6 +19,19 @@ public class AsteroidFinder
 
         return result.Where(x => x.IsHazardous &&
                                  !string.IsNullOrEmpty(x.Planet) &&
-                                 x.Planet.Equals(planet, StringComparison.OrdinalIgnoreCase)).ToList();
+                                 x.Planet.Equals(planet,
+                                     StringComparison.OrdinalIgnoreCase)
+            )
+            .OrderByDescending(x => x.Diameter)
+            .Select(x => new AsteroidDTO()
+            {
+                Date = x.Date,
+                Diameter = x.Diameter,
+                Name = x.Name,
+                Planet = x.Planet,
+                Velocity = x.Velocity,
+                IsHazardous = x.IsHazardous
+            })
+            .ToList();
     }
 }
