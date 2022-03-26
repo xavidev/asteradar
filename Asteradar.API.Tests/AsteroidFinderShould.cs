@@ -25,7 +25,7 @@ public class AsteroidFinderShould
         var sut = new AsteroidFinder(clientStub.Object);
 
         
-        var result = await sut.GetNearAsteroids("earth");
+        var result = await sut.GetHazardousAsteroids("earth");
 
         
         result.Count.Should().Be(3);
@@ -76,6 +76,16 @@ public class AsteroidFinderShould
                 IsHazardous = true,
                 Name = It.IsAny<string>(),
                 Planet = It.IsAny<string>(),
+                Velocity = It.IsAny<double>()
+            },
+            new()
+            {
+                Date = DateOnly.FromDateTime(26.March(2022)),
+                MinDiameter = 123.123,
+                MaxDiameter = 123.123,
+                IsHazardous = true,
+                Name = It.IsAny<string>(),
+                Planet = "Earth",
                 Velocity = It.IsAny<double>()
             }
         };
