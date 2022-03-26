@@ -14,7 +14,7 @@ public class AsteradarAPITests : IClassFixture<WebApplicationFactory<Program>>
     }
     
     [Fact]
-    public async Task  Test_Api()
+    public async Task  Test_Succes()
     {
         var client = this.fixture.CreateClient();
         var response = await client.GetAsync("/asteroids?planet=earth");
