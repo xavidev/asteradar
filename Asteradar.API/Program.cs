@@ -1,7 +1,5 @@
-using System.ComponentModel.DataAnnotations;
 using Asteradar.API.Client;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Mvc;
+using Asteradar.API.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +7,7 @@ builder.Services.AddHttpClient<AsteroidClient>(x =>
 {
     x.BaseAddress = new Uri(builder.Configuration["API:BaseUrl"]);
 });
+builder.Services.AddScoped<AsteroidFinder>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -21,7 +20,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.MapGet("/asteroids", (string planet) => Results.Ok()).ProducesValidationProblem(400);
+app.MapGet("/asteroids", (string planet) =>
+{
+    
+    return Results.Ok();
+}).ProducesValidationProblem(400);
 
 app.Run();
 

@@ -1,5 +1,7 @@
 using System.Net;
+using System.Net.Http.Json;
 using System.Threading.Tasks;
+using Asteradar.API.Client;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Xunit;
@@ -22,7 +24,10 @@ public class AsteradarAPITests : IClassFixture<WebApplicationFactory<Program>>
         
         var response = await client.GetAsync("/asteroids?planet=earth");
 
+        var content = await response.Content.ReadFromJsonAsync<Response.NearAsteroidsResponse>();
+        
         response.EnsureSuccessStatusCode();
+        content.ElementCount.Should().BeGreaterThan(0);
     }
 
     [Fact]
