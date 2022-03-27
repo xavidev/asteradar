@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http.Json;
@@ -38,6 +39,16 @@ public class AsteradarAPITests : IClassFixture<WebApplicationFactory<Program>>
         var client = this.fixture.CreateClient();
 
         var response = await client.GetAsync("/asteroids");
+
+        response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+    }
+
+    [Fact]
+    public async Task Test_BadRequest_When_Invalid_Planet_Name()
+    {
+        var client = this.fixture.CreateClient();
+
+        var response = await client.GetAsync($"/asteroids?planet={string.Empty}");
 
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
     }

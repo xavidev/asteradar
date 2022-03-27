@@ -1,5 +1,6 @@
 using Asteradar.API.Client;
 using Asteradar.API.Service;
+using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,9 +23,21 @@ if (app.Environment.IsDevelopment())
 
 app.MapGet("/asteroids", async (string planet, AsteroidFinder finder) =>
 {
-    var result = await finder.GetHazardousAsteroids(planet);
-    return Results.Ok(result);
+    try
+    {
+        var result = await finder.GetHazardousAsteroids(planet);
+        return Results.Ok(result);
+    }
+    catch (ArgumentException)
+    {
+        return Results.BadRequest(new ValidationProblemDetails(new Dictionary<string, string[]>()
+        {
+            ["Planet"] = new []{"Planet must be a valid name."}
+        }));
+    }
+    
 })
+    .WithName("GetHazardousAsteroids")
     .Produces<List<AsteroidDTO>>()
     .ProducesValidationProblem(400);
 
