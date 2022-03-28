@@ -1,6 +1,4 @@
-using System.Diagnostics;
 using Asteradar.API.Models;
-using Asteradar.API.Service;
 
 namespace Asteradar.API.Client;
 

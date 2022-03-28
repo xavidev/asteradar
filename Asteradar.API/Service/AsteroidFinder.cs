@@ -1,5 +1,4 @@
 using Asteradar.API.Client;
-using Asteradar.API.Models;
 
 namespace Asteradar.API.Service;
 

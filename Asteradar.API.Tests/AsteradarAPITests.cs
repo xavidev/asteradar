@@ -1,9 +1,7 @@
-using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
-using Asteradar.API.Client;
 using Asteradar.API.Service;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;

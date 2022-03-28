@@ -1,11 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Asteradar.API.Client;
 using Asteradar.API.Models;
 using Asteradar.API.Service;
-using AutoFixture;
 using FluentAssertions;
 using FluentAssertions.Extensions;
 using Moq;
