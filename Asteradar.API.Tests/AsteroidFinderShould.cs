@@ -53,9 +53,12 @@ public class AsteroidFinderShould
 
     private static List<Asteroid> CreateTwoHazardousAsteroids()
     {
-        var asteroids = CreateAsteroids();
-        asteroids.RemoveAt(0);
-        asteroids.RemoveAt(1);
+        var asteroids = new List<Asteroid>()
+        {
+            new AsteroidBuilder(It.IsAny<string>(), "earth", true).Build(),
+            new AsteroidBuilder(It.IsAny<string>(), "earth", true).Build(),
+        };
+        
         return asteroids;
     }
 
@@ -74,57 +77,13 @@ public class AsteroidFinderShould
     {
         var asteroids = new List<Asteroid>()
         {
-            new()
-            {
-                Date = DateOnly.FromDateTime(26.March(2022)),
-                MinDiameter = 111.123,
-                MaxDiameter = 211.123,
-                IsHazardous = true,
-                Name = "Third",
-                Planet = "earth",
-                Velocity = It.IsAny<double>()
-            },
-            new()
-            {
-                Date = DateOnly.FromDateTime(26.March(2022)),
-                MinDiameter = 123.123,
-                MaxDiameter = 222.123,
-                IsHazardous = true,
-                Name = "Second",
-                Planet = "earth",
-                Velocity = It.IsAny<double>()
-            },
-            new()
-            {
-                Date = DateOnly.FromDateTime(26.March(2022)),
-                MinDiameter = 123.123,
-                MaxDiameter = 222.124,
-                IsHazardous = true,
-                Name = "First",
-                Planet = "earth",
-                Velocity = It.IsAny<double>()
-            },
-            new()
-            {
-                Date = DateOnly.FromDateTime(26.March(2022)),
-                MinDiameter = 123.123,
-                MaxDiameter = 123.123,
-                IsHazardous = true,
-                Name = It.IsAny<string>(),
-                Planet = It.IsAny<string>(),
-                Velocity = It.IsAny<double>()
-            },
-            new()
-            {
-                Date = DateOnly.FromDateTime(26.March(2022)),
-                MinDiameter = 123.123,
-                MaxDiameter = 123.123,
-                IsHazardous = true,
-                Name = It.IsAny<string>(),
-                Planet = "Earth",
-                Velocity = It.IsAny<double>()
-            }
+            new AsteroidBuilder("Third", "earth", true).Small().Build(),
+            new AsteroidBuilder("Second", "earth", true).Medium().Build(),
+            new AsteroidBuilder("First", "earth", true).Big().Build(),
+            new AsteroidBuilder(It.IsAny<string>(), "random", true).Build(),
+            new AsteroidBuilder(It.IsAny<string>(), "Earth", true).ExtraSmall().Build()
         };
+        
         return asteroids;
     }
 }
