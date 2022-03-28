@@ -25,15 +25,15 @@ public class AsteroidClient : IAsteroidClient
 
         var content = await response.Content.ReadFromJsonAsync<Response.NearAsteroidsResponse>();
         
-        return content?.NearEarthObjects.SelectMany(x => x.Value.Select(x => new Asteroid()
+        return content.NearEarthObjects.SelectMany(x => x.Value.Select(asteroid => new Asteroid()
         {
-            Date = DateOnly.Parse(x.CloseApproachData[0].CloseApproachDate),
-            Name = x.Name,
-            Planet = x.CloseApproachData[0].OrbitingBody,
-            IsHazardous = x.IsPotentiallyHazardousAsteroid,
-            Velocity = double.Parse(x.CloseApproachData[0].RelativeVelocity.KilometersPerHour),
-            MaxDiameter = x.EstimatedDiameter.Kilometers.EstimatedDiameterMax,
-            MinDiameter = x.EstimatedDiameter.Kilometers.EstimatedDiameterMin
+            Date = DateOnly.Parse(asteroid.CloseApproachData[0].CloseApproachDate),
+            Name = asteroid.Name,
+            Planet = asteroid.CloseApproachData[0].OrbitingBody,
+            IsHazardous = asteroid.IsPotentiallyHazardousAsteroid,
+            Velocity = double.Parse(asteroid.CloseApproachData[0].RelativeVelocity.KilometersPerHour),
+            MaxDiameter = asteroid.EstimatedDiameter.Kilometers.EstimatedDiameterMax,
+            MinDiameter = asteroid.EstimatedDiameter.Kilometers.EstimatedDiameterMin
         })).ToList();
     }
 }
