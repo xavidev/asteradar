@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Asteradar.API.Client;
 using Asteradar.API.Models;
 using Asteradar.API.Service;
+using AutoFixture;
 using FluentAssertions;
 using FluentAssertions.Extensions;
 using Moq;
@@ -30,6 +32,31 @@ public class AsteroidFinderShould
         result[0].Name.Should().Be("First");
         result[1].Name.Should().Be("Second");
         result[2].Name.Should().Be("Third");
+    }
+
+    [Fact]
+    public async Task Return_Existing_Asteroids_When_No_Top3()
+    {
+        var clientStub = new Mock<IAsteroidClient>();
+        var asteroids = CreateTwoHazardousAsteroids();
+        clientStub.Setup(x => x.GetNearAsteroids(It.IsAny<DateTime>(),
+                It.IsAny<DateTime>()))
+            .ReturnsAsync(asteroids);
+        var sut = new AsteroidFinder(clientStub.Object);
+        
+        
+        var result = await sut.GetHazardousAsteroids("earth");
+
+        
+        result.Count.Should().Be(2);
+    }
+
+    private static List<Asteroid> CreateTwoHazardousAsteroids()
+    {
+        var asteroids = CreateAsteroids();
+        asteroids.RemoveAt(0);
+        asteroids.RemoveAt(1);
+        return asteroids;
     }
 
     [Fact]
